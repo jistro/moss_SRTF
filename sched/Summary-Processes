@@ -1,0 +1,23 @@
+Process: 0 registered... (1159 360 0 0 2)
+Process: 0 I/O blocked... (1159 360 360 360)
+-ub: 0 process.cpudone360<1159process.cputime
+Process: 0 registered... (1159 360 360 360)
+Process: 0 I/O blocked... (1159 360 720 720)
+-ub: 0 process.cpudone720<1159process.cputime
+-ub: 1 process.cpudone720<1159process.cputime
+Process: 1 registered... (1159 550 0 0)
+Process: 1 I/O blocked... (1159 550 550 550)
+Process: 1 registered... (1159 550 550 550)
+Process: 1 I/O blocked... (1159 550 1100 1100)
+-ub: 0 process.cpudone1100<1159process.cputime
+Process: 0 registered... (1159 360 720 720)
+Process: 0 I/O blocked... (1159 360 1080 1080)
+-ub: 0 process.cpudone1080<1159process.cputime
+-ub: 1 process.cpudone1080<1159process.cputime
+Process: 1 registered... (1159 550 1100 1100)
+Process: 1 completed... (1159 550 1159 1159)
+Process: 1 registered... (1159 550 1159 1159)
+Process: 1 I/O blocked... (1159 550 1650 1650)
+-ub: 0 process.cpudone1650<1159process.cputime
+Process: 0 registered... (1159 360 1080 1080)
+Process: 0 completed... (1159 360 1159 1159)
