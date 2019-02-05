@@ -8,13 +8,14 @@ import java.io.*;
 public class SchedulingAlgorithm {
 
   public static Results Run(int runtime, Vector processVector, Results result) {
-    int i = 0; int j=0; int desp1 = 0; int desp2 = 0;
+    int i = 0; int j=0; int desp1 = 0; int desp2 = 0; int k=0;
     int tiempo_compilacion = 0;
     int proseso_actual = 0;
     int proseso_anterior = 0;
     //size # of Process
     int size = processVector.size();
     int completados = 0;
+    int tam_max=runtime;
     String resultsFile = "Summary-Processes";
 
     result.schedulingType = "Batch (Nonpreemptive)";
@@ -47,27 +48,31 @@ public class SchedulingAlgorithm {
               }
 
               //for (i = size - 1; i >= 0; i--)
-
-              if (j!=size)
+              tam_max=runtime;
+              if (k!=size)
               {
-                j++;
+                k++;
+                out.println("k "+k+ " size "+size);
               }
               else
               {
-                j=0;
+                k=0;
+                out.println("reset");
               }
-              for (i = 0; i <j ; i++)
+              for (i = 0; i <k ; i++)
               {
                 process = (sProcess) processVector.elementAt(i); //elementAt es el  desplazador;
                 out.println("--ub: " + i + " process.cpudone" + process.cpudone + "<" + process.cputime +"process.cputime");
-                if (process.cpudone < process.cputime)
+                if (process.cpudone < process.cputime )
                 {
                   proseso_actual = i;
+                  out.println("-toma a " + proseso_actual);
                 }
               }
               process = (sProcess) processVector.elementAt(proseso_actual);
               out.println("Process: " + proseso_actual + " registered... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
             }
+            
 
             //despacho de proseso///////////////////////////
             if (process.ioblocking == process.ionext)
@@ -82,20 +87,24 @@ public class SchedulingAlgorithm {
               if (j!=size)
               {
                 j++;
+                out.println("j "+j+ " size "+size);
               }
               else
               {
                 j=0;
+                out.println("reset");
               }
               for (i = 0; i <j ; i++)
               {
                 out.println("-ub: " + i + " process.cpudone" + process.cpudone + "<" + process.cputime +"process.cputime");
                 process = (sProcess) processVector.elementAt(i);
-                if (process.cpudone < process.cputime && proseso_anterior != i)
+                if (process.cpudone < process.cputime && i != proseso_actual)
                 {
                   proseso_actual = i;
+                  out.println("toma a " + proseso_actual);
                 }
               }
+
 
               process = (sProcess) processVector.elementAt(proseso_actual);
 
