@@ -8,7 +8,7 @@ import java.io.*;
 public class SchedulingAlgorithm {
 
   public static Results Run(int runtime, Vector processVector, Results result) {
-    int i = 0; int j=0; int desp1 = 0; int desp2 = 0; int k=0;
+    int i = 0; int j=0; int desp1 = 0; int desp2 = 0; int k=0; int min_esp=999999999;
     int tiempo_compilacion = 0;
     int proseso_actual = 0;
     int proseso_anterior = 0;
@@ -28,7 +28,7 @@ public class SchedulingAlgorithm {
       sProcess process = (sProcess) processVector.elementAt(proseso_actual);
 
       //enproceso
-      out.println("Process: " + proseso_actual + " registered... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + " "+ size + ")");
+      out.println("Process: " + proseso_actual + " registered... ( ++" + process.cputime + " max:" + process.ioblocking + " completado:" + process.cpudone + " " + ")");
 
       while (tiempo_compilacion < runtime)  //tiempo a hacer la operacion
       {
@@ -37,7 +37,7 @@ public class SchedulingAlgorithm {
             if (process.cpudone == process.cputime)
             {
               completados++;
-              out.println("Process: " + proseso_actual + " completed... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
+              out.println("Process: " + proseso_actual + " completed... ( ++" + process.cputime + " max:" + process.ioblocking + " completado:" + process.cpudone + " " + ")");
 
               // si ya no se tiene mas que hacer entonces
               if (completados == size)
@@ -52,32 +52,44 @@ public class SchedulingAlgorithm {
               if (k!=size)
               {
                 k++;
+                out.println();
                 out.println("k "+k+ " size "+size);
               }
               else
               {
                 k=0;
+                out.println();
                 out.println("reset");
               }
+              min_esp=999999999;
               for (i = 0; i <k ; i++)
               {
                 process = (sProcess) processVector.elementAt(i); //elementAt es el  desplazador;
-                out.println("--ub: " + i + " process.cpudone" + process.cpudone + "<" + process.cputime +"process.cputime");
+                out.println("--ub: " + i + " process.cpudone " + process.cpudone + " < " + process.cputime +" process.cputime");
+                if (i != proseso_actual)
+                {
+                  out.println("el proceso " + proseso_actual + "es diferente a "+i);
+                }
                 if (process.cpudone < process.cputime )
                 {
-                  proseso_actual = i;
-                  out.println("-toma a " + proseso_actual);
+                  if (process.cpudone<min_esp)
+                  {
+                    min_esp=process.cpudone;
+                    proseso_actual = i;
+                    out.println("-toma a " + proseso_actual);
+                  }
+
                 }
               }
               process = (sProcess) processVector.elementAt(proseso_actual);
-              out.println("Process: " + proseso_actual + " registered... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
+              out.println("Process: " + proseso_actual + " registered... ( ++" + process.cputime + " max:" + process.ioblocking + " completado:" + process.cpudone + " " + ")");
             }
-            
+
 
             //despacho de proseso///////////////////////////
             if (process.ioblocking == process.ionext)
             {
-              out.println("Process: " + proseso_actual + " I/O blocked... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
+              out.println("Process: " + proseso_actual + " I/O blocked... ( ++" + process.cputime + " max:" + process.ioblocking + " completado:" + process.cpudone + " " + ")");
               process.numblocked++;
               process.ionext = 0;
               proseso_anterior = proseso_actual;
@@ -87,31 +99,43 @@ public class SchedulingAlgorithm {
               if (j!=size)
               {
                 j++;
+                out.println();
                 out.println("j "+j+ " size "+size);
               }
               else
               {
                 j=0;
+                out.println();
                 out.println("reset");
               }
+              min_esp=999999999;
               for (i = 0; i <j ; i++)
               {
-                out.println("-ub: " + i + " process.cpudone" + process.cpudone + "<" + process.cputime +"process.cputime");
+                out.println("-ub: " + i + " process.cpudone " + process.cpudone + " < " + process.cputime +" process.cputime");
                 process = (sProcess) processVector.elementAt(i);
+                if (i != proseso_actual)
+                {
+                  out.println("el proceso " + proseso_actual + " es diferente a "+i);
+                }
                 if (process.cpudone < process.cputime && i != proseso_actual)
                 {
-                  proseso_actual = i;
-                  out.println("toma a " + proseso_actual);
+                  if (process.cpudone<min_esp)
+                  {
+                    min_esp=process.cpudone;
+                    proseso_actual = i;
+                    out.println("-toma a " + proseso_actual);
+                  }
                 }
               }
 
 
               process = (sProcess) processVector.elementAt(proseso_actual);
 
-              out.println("Process: " + proseso_actual + " registered... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
+              out.println("Process: " + proseso_actual + " registered... ( ++" + process.cputime + " max:" + process.ioblocking + " completado:" + process.cpudone + " " + ")");
             }
             process.cpudone++;
-            if (process.ioblocking > 0) {
+            if (process.ioblocking > 0)
+            {
               process.ionext++;
             }
             tiempo_compilacion++;

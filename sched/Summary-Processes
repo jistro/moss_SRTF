@@ -1,23 +1,133 @@
-Process: 0 registered... (1159 360 0 0 2)
-Process: 0 I/O blocked... (1159 360 360 360)
--ub: 0 process.cpudone360<1159process.cputime
-Process: 0 registered... (1159 360 360 360)
-Process: 0 I/O blocked... (1159 360 720 720)
--ub: 0 process.cpudone720<1159process.cputime
--ub: 1 process.cpudone720<1159process.cputime
-Process: 1 registered... (1159 550 0 0)
-Process: 1 I/O blocked... (1159 550 550 550)
-Process: 1 registered... (1159 550 550 550)
-Process: 1 I/O blocked... (1159 550 1100 1100)
--ub: 0 process.cpudone1100<1159process.cputime
-Process: 0 registered... (1159 360 720 720)
-Process: 0 I/O blocked... (1159 360 1080 1080)
--ub: 0 process.cpudone1080<1159process.cputime
--ub: 1 process.cpudone1080<1159process.cputime
-Process: 1 registered... (1159 550 1100 1100)
-Process: 1 completed... (1159 550 1159 1159)
-Process: 1 registered... (1159 550 1159 1159)
-Process: 1 I/O blocked... (1159 550 1650 1650)
--ub: 0 process.cpudone1650<1159process.cputime
-Process: 0 registered... (1159 360 1080 1080)
-Process: 0 completed... (1159 360 1159 1159)
+Process: 0 registered... ( ++1302 max:360 completado:0 )
+Process: 0 I/O blocked... ( ++1302 max:360 completado:360 )
+
+j 1 size 5
+-ub: 0 process.cpudone 360 < 1302 process.cputime
+Process: 0 registered... ( ++1302 max:360 completado:360 )
+Process: 0 I/O blocked... ( ++1302 max:360 completado:720 )
+
+j 2 size 5
+-ub: 0 process.cpudone 720 < 1302 process.cputime
+-ub: 1 process.cpudone 720 < 1302 process.cputime
+el proceso 0 es diferente a 1
+-toma a 1
+Process: 1 registered... ( ++1548 max:550 completado:0 )
+Process: 1 I/O blocked... ( ++1548 max:550 completado:550 )
+
+j 3 size 5
+-ub: 0 process.cpudone 550 < 1548 process.cputime
+el proceso 1 es diferente a 0
+-toma a 0
+-ub: 1 process.cpudone 720 < 1302 process.cputime
+el proceso 0 es diferente a 1
+-toma a 1
+-ub: 2 process.cpudone 550 < 1548 process.cputime
+el proceso 1 es diferente a 2
+-toma a 2
+Process: 2 registered... ( ++1548 max:660 completado:0 )
+Process: 2 I/O blocked... ( ++1548 max:660 completado:660 )
+
+j 4 size 5
+-ub: 0 process.cpudone 660 < 1548 process.cputime
+el proceso 2 es diferente a 0
+-toma a 0
+-ub: 1 process.cpudone 720 < 1302 process.cputime
+el proceso 0 es diferente a 1
+-toma a 1
+-ub: 2 process.cpudone 550 < 1548 process.cputime
+el proceso 1 es diferente a 2
+-ub: 3 process.cpudone 660 < 1548 process.cputime
+el proceso 1 es diferente a 3
+-toma a 3
+Process: 3 registered... ( ++1548 max:660 completado:0 )
+Process: 3 I/O blocked... ( ++1548 max:660 completado:660 )
+
+j 5 size 5
+-ub: 0 process.cpudone 660 < 1548 process.cputime
+el proceso 3 es diferente a 0
+-toma a 0
+-ub: 1 process.cpudone 720 < 1302 process.cputime
+el proceso 0 es diferente a 1
+-toma a 1
+-ub: 2 process.cpudone 550 < 1548 process.cputime
+el proceso 1 es diferente a 2
+-ub: 3 process.cpudone 660 < 1548 process.cputime
+el proceso 1 es diferente a 3
+-ub: 4 process.cpudone 660 < 1548 process.cputime
+el proceso 1 es diferente a 4
+-toma a 4
+Process: 4 registered... ( ++1548 max:860 completado:0 )
+Process: 4 I/O blocked... ( ++1548 max:860 completado:860 )
+
+reset
+Process: 4 registered... ( ++1548 max:860 completado:860 )
+Process: 4 completed... ( ++1548 max:860 completado:1548 )
+
+k 1 size 5
+--ub: 0 process.cpudone 720 < 1302 process.cputime
+el proceso 4es diferente a 0
+-toma a 0
+Process: 0 registered... ( ++1302 max:360 completado:720 )
+Process: 0 I/O blocked... ( ++1302 max:360 completado:1080 )
+
+j 1 size 5
+-ub: 0 process.cpudone 1080 < 1302 process.cputime
+Process: 0 registered... ( ++1302 max:360 completado:1080 )
+Process: 0 completed... ( ++1302 max:360 completado:1302 )
+
+k 2 size 5
+--ub: 0 process.cpudone 1302 < 1302 process.cputime
+--ub: 1 process.cpudone 550 < 1548 process.cputime
+el proceso 0es diferente a 1
+-toma a 1
+Process: 1 registered... ( ++1548 max:550 completado:550 )
+Process: 1 I/O blocked... ( ++1548 max:550 completado:1100 )
+
+j 2 size 5
+-ub: 0 process.cpudone 1100 < 1548 process.cputime
+el proceso 1 es diferente a 0
+-ub: 1 process.cpudone 1302 < 1302 process.cputime
+Process: 1 registered... ( ++1548 max:550 completado:1100 )
+Process: 1 completed... ( ++1548 max:550 completado:1548 )
+
+k 3 size 5
+--ub: 0 process.cpudone 1302 < 1302 process.cputime
+el proceso 1es diferente a 0
+--ub: 1 process.cpudone 1548 < 1548 process.cputime
+--ub: 2 process.cpudone 660 < 1548 process.cputime
+el proceso 1es diferente a 2
+-toma a 2
+Process: 2 registered... ( ++1548 max:660 completado:660 )
+Process: 2 I/O blocked... ( ++1548 max:660 completado:1320 )
+
+j 3 size 5
+-ub: 0 process.cpudone 1320 < 1548 process.cputime
+el proceso 2 es diferente a 0
+-ub: 1 process.cpudone 1302 < 1302 process.cputime
+el proceso 2 es diferente a 1
+-ub: 2 process.cpudone 1548 < 1548 process.cputime
+Process: 2 registered... ( ++1548 max:660 completado:1320 )
+Process: 2 completed... ( ++1548 max:660 completado:1548 )
+
+k 4 size 5
+--ub: 0 process.cpudone 1302 < 1302 process.cputime
+el proceso 2es diferente a 0
+--ub: 1 process.cpudone 1548 < 1548 process.cputime
+el proceso 2es diferente a 1
+--ub: 2 process.cpudone 1548 < 1548 process.cputime
+--ub: 3 process.cpudone 660 < 1548 process.cputime
+el proceso 2es diferente a 3
+-toma a 3
+Process: 3 registered... ( ++1548 max:660 completado:660 )
+Process: 3 I/O blocked... ( ++1548 max:660 completado:1320 )
+
+j 4 size 5
+-ub: 0 process.cpudone 1320 < 1548 process.cputime
+el proceso 3 es diferente a 0
+-ub: 1 process.cpudone 1302 < 1302 process.cputime
+el proceso 3 es diferente a 1
+-ub: 2 process.cpudone 1548 < 1548 process.cputime
+el proceso 3 es diferente a 2
+-ub: 3 process.cpudone 1548 < 1548 process.cputime
+Process: 3 registered... ( ++1548 max:660 completado:1320 )
+Process: 3 completed... ( ++1548 max:660 completado:1548 )
