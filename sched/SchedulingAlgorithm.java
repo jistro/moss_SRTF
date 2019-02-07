@@ -1,6 +1,12 @@
 // Run() is called from Scheduling.main() and is where
 // the scheduling algorithm written by the user resides.
 // User modification should occur within the Run() function.
+/*
+  tomar en cuenta
+  process.cpudone -----> el total de tiempo acumulado
+  process.ioblocking --> el tiempo max a ejecutar dicha funcion
+  process.cputime -----> el tiempo signado a ejecutar (se hace aleatorio)
+*/
 
 import java.util.Vector;
 import java.io.*;
@@ -8,18 +14,17 @@ import java.io.*;
 public class SchedulingAlgorithm {
 
   public static Results Run(int runtime, Vector processVector, Results result) {
-    int i = 0; int j=0; int desp1 = 0; int desp2 = 0; int k=0; int min_esp=999999999;
+    int i = 0; int j1=0; int j2=0; int tiempo_minimo=999999;  int candidato=(-1);
     int tiempo_compilacion = 0;
     int proseso_actual = 0;
-    int proseso_anterior = 0;
+    //int proseso_anterior = 0;
     //size # of Process
     int size = processVector.size();
     int completados = 0;
-    int tam_max=runtime;
     String resultsFile = "Summary-Processes";
 
     result.schedulingType = "Batch (Nonpreemptive)";
-    result.schedulingName = "First-Come First-Served";
+    result.schedulingName = "SRTF";
     try
     {
       //BufferedWriter out = new BufferedWriter(new FileWriter(resultsFile));
@@ -28,16 +33,16 @@ public class SchedulingAlgorithm {
       sProcess process = (sProcess) processVector.elementAt(proseso_actual);
 
       //enproceso
-      out.println("Process: " + proseso_actual + " registered... ( ++" + process.cputime + " max:" + process.ioblocking + " completado:" + process.cpudone + " " + ")");
+      out.println("inicio tamano: " + size);
+      out.println("Process: " + proseso_actual + " registered... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone +")");
 
       while (tiempo_compilacion < runtime)  //tiempo a hacer la operacion
       {
-
             //proseso completado//////////////////////////////////
             if (process.cpudone == process.cputime)
             {
               completados++;
-              out.println("Process: " + proseso_actual + " completed... ( ++" + process.cputime + " max:" + process.ioblocking + " completado:" + process.cpudone + " " + ")");
+              out.println("Process: " + proseso_actual + " completed... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + ")");
 
               // si ya no se tiene mas que hacer entonces
               if (completados == size)
@@ -46,96 +51,103 @@ public class SchedulingAlgorithm {
                 out.close();
                 return result;
               }
-
-              //for (i = size - 1; i >= 0; i--)
-              tam_max=runtime;
-              if (k!=size)
+              if (j1!=size)
               {
-                k++;
-                out.println();
-                out.println("k "+k+ " size "+size);
+                j1++;
               }
               else
               {
-                k=0;
-                out.println();
+                j1=0;
+                out.println("------------------------------------------");
                 out.println("reset");
+                out.println();
               }
-              min_esp=999999999;
-              for (i = 0; i <k ; i++)
+              //for (i = size - 1; i >= 0; i--)
+              // se asigna la nueva funcion
+              tiempo_minimo=999999;
+              candidato=size;
+              for (i = 0; i <j1 ; i++)
               {
+                out.println("i: "+i+" j2: "+j2);
                 process = (sProcess) processVector.elementAt(i); //elementAt es el  desplazador;
-                out.println("--ub: " + i + " process.cpudone " + process.cpudone + " < " + process.cputime +" process.cputime");
-                if (i != proseso_actual)
+                out.println("--ub: " + i + " process.cpudone " + process.cpudone + "<" + process.cputime +" process.cputime");
+                if (process.cpudone <= process.cputime)
                 {
-                  out.println("el proceso " + proseso_actual + "es diferente a "+i);
-                }
-                if (process.cpudone < process.cputime )
-                {
-                  if (process.cpudone<min_esp)
+                  if (process.cpudone <= tiempo_minimo)
                   {
-                    min_esp=process.cpudone;
-                    proseso_actual = i;
-                    out.println("-toma a " + proseso_actual);
+                    if (i<candidato)
+                    {
+                      candidato=i;
+                      tiempo_minimo=process.cpudone;
+                      proseso_actual = i;
+                      out.println("-toma a " + proseso_actual);
+                    }
                   }
-
+                  //proseso_actual = i;
+                  //out.println("-toma a " + proseso_actual);
                 }
               }
               process = (sProcess) processVector.elementAt(proseso_actual);
-              out.println("Process: " + proseso_actual + " registered... ( ++" + process.cputime + " max:" + process.ioblocking + " completado:" + process.cpudone + " " + ")");
+              out.println("Process: " + proseso_actual + " registered... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + ")");
             }
-
 
             //despacho de proseso///////////////////////////
             if (process.ioblocking == process.ionext)
             {
-              out.println("Process: " + proseso_actual + " I/O blocked... ( ++" + process.cputime + " max:" + process.ioblocking + " completado:" + process.cpudone + " " + ")");
+              out.println("Process: " + proseso_actual + " I/O blocked... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + ")");
               process.numblocked++;
               process.ionext = 0;
-              proseso_anterior = proseso_actual;
+              //proseso_anterior = proseso_actual;
 
               //desplace de
-              //for (i = size - 1; i >= 0; i--)
-              if (j!=size)
+              if (j2!=size)
               {
-                j++;
-                out.println();
-                out.println("j "+j+ " size "+size);
+                j2++;
               }
               else
               {
-                j=0;
-                out.println();
+                j2=0;
+                out.println("//////////////////////////////////////////");
                 out.println("reset");
+                out.println();
               }
-              min_esp=999999999;
-              for (i = 0; i <j ; i++)
+              //for (i = size - 1; i >= 0; i--)
+              /*
+                tomar en cuenta
+                process.cpudone -----> el total de tiempo acumulado
+                process.ioblocking --> el tiempo max a ejecutar dicha funcion
+                process.cputime -----> el tiempo signado a ejecutar (se hace aleatorio)
+              */
+              // se asigna la nueva funcion
+              tiempo_minimo=999999;
+              candidato=size;
+              for (i = 0; i <j2 ; i++)
               {
-                out.println("-ub: " + i + " process.cpudone " + process.cpudone + " < " + process.cputime +" process.cputime");
+                out.println("i: "+i+" j2: "+j2);
                 process = (sProcess) processVector.elementAt(i);
-                if (i != proseso_actual)
+                out.println("-ub: " + i + " process.cpudone " + process.cpudone + "<" + process.cputime +" process.cputime");
+                //if (process.cpudone < process.cputime && proseso_anterior != i)
+                if (process.cpudone <= process.cputime )
                 {
-                  out.println("el proceso " + proseso_actual + " es diferente a "+i);
-                }
-                if (process.cpudone < process.cputime && i != proseso_actual)
-                {
-                  if (process.cpudone<min_esp)
+                  if (process.cpudone <= tiempo_minimo)
                   {
-                    min_esp=process.cpudone;
-                    proseso_actual = i;
-                    out.println("-toma a " + proseso_actual);
+                    if (i<candidato)
+                    {
+                      candidato=i;
+                      tiempo_minimo=process.cpudone;
+                      proseso_actual = i;
+                      out.println("-toma a " + proseso_actual);
+                    }
                   }
                 }
               }
 
-
               process = (sProcess) processVector.elementAt(proseso_actual);
 
-              out.println("Process: " + proseso_actual + " registered... ( ++" + process.cputime + " max:" + process.ioblocking + " completado:" + process.cpudone + " " + ")");
+              out.println("Process: " + proseso_actual + " registered... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + ")");
             }
             process.cpudone++;
-            if (process.ioblocking > 0)
-            {
+            if (process.ioblocking > 0) {
               process.ionext++;
             }
             tiempo_compilacion++;
