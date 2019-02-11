@@ -1,92 +1,75 @@
-inicio tamano: 3
-Process: 0 registered... (1755 260 0)
-Process: 0 I/O blocked... (1755 260 260)
-i: 0 j2: 1
--ub: 0 process.cpudone 260<1755 process.cputime
+inicio tamano: 3tiempo: 10000
+Process:: 0 registered... (10 1 0)
+Process: 0 I/O blocked... (10 1 1)
 -toma a 0
-Process: 0 registered... (1755 260 260)
-Process: 0 I/O blocked... (1755 260 520)
-i: 0 j2: 2
--ub: 0 process.cpudone 520<1755 process.cputime
+Process: 0 registered... (10 1 1)
+Process: 0 I/O blocked... (10 1 2)
 -toma a 0
-i: 1 j2: 2
--ub: 1 process.cpudone 0<1755 process.cputime
-Process: 0 registered... (1755 260 520)
-Process: 0 I/O blocked... (1755 260 780)
-i: 0 j2: 3
--ub: 0 process.cpudone 780<1755 process.cputime
+Process: 0 registered... (10 1 2)
+Process: 0 I/O blocked... (10 1 3)
 -toma a 0
-i: 1 j2: 3
--ub: 1 process.cpudone 0<1755 process.cputime
-i: 2 j2: 3
--ub: 2 process.cpudone 0<1051 process.cputime
-Process: 0 registered... (1755 260 780)
-Process: 0 I/O blocked... (1755 260 1040)
+Process: 0 registered... (10 1 3)
+Process: 0 I/O blocked... (10 1 4)
 //////////////////////////////////////////
 reset
 
-Process: 0 registered... (1755 260 1040)
-Process: 0 I/O blocked... (1755 260 1300)
-i: 0 j2: 1
--ub: 0 process.cpudone 1300<1755 process.cputime
 -toma a 0
-Process: 0 registered... (1755 260 1300)
-Process: 0 I/O blocked... (1755 260 1560)
-i: 0 j2: 2
--ub: 0 process.cpudone 1560<1755 process.cputime
+Process: 0 registered... (10 1 4)
+Process: 0 I/O blocked... (10 1 5)
 -toma a 0
-i: 1 j2: 2
--ub: 1 process.cpudone 0<1755 process.cputime
-Process: 0 registered... (1755 260 1560)
-Process: 0 completed... (1755 260 1755)
-i: 0 j2: 2
---ub: 0 process.cpudone 1755<1755 process.cputime
+Process: 0 registered... (10 1 5)
+Process: 0 I/O blocked... (10 1 6)
 -toma a 0
-Process: 0 registered... (1755 260 1755)
-Process: 0 I/O blocked... (1755 260 1820)
-i: 0 j2: 3
--ub: 0 process.cpudone 1820<1755 process.cputime
-i: 1 j2: 3
--ub: 1 process.cpudone 0<1755 process.cputime
--toma a 1
-i: 2 j2: 3
--ub: 2 process.cpudone 0<1051 process.cputime
-Process: 1 registered... (1755 460 0)
-Process: 1 I/O blocked... (1755 460 460)
+Process: 0 registered... (10 1 6)
+Process: 0 I/O blocked... (10 1 7)
 //////////////////////////////////////////
 reset
 
-Process: 1 registered... (1755 460 460)
-Process: 1 I/O blocked... (1755 460 920)
-i: 0 j2: 1
--ub: 0 process.cpudone 1820<1755 process.cputime
-Process: 1 registered... (1755 460 920)
-Process: 1 I/O blocked... (1755 460 1380)
-i: 0 j2: 2
--ub: 0 process.cpudone 1820<1755 process.cputime
-i: 1 j2: 2
--ub: 1 process.cpudone 1380<1755 process.cputime
+-toma a 0
+Process: 0 registered... (10 1 7)
+Process: 0 I/O blocked... (10 1 8)
+-toma a 0
+Process: 0 registered... (10 1 8)
+Process: 0 I/O blocked... (10 1 9)
+-toma a 0
+Process: 0 registered... (10 1 9)
+Process: 0 completed... (10 1 10)
 -toma a 1
-Process: 1 registered... (1755 460 1380)
-Process: 1 completed... (1755 460 1755)
-i: 0 j2: 2
---ub: 0 process.cpudone 1820<1755 process.cputime
-i: 1 j2: 2
---ub: 1 process.cpudone 1755<1755 process.cputime
+Process: 1 registered... (11 2 0)
+Process: 1 I/O blocked... (11 2 2)
+//////////////////////////////////////////
+reset
+
 -toma a 1
-Process: 1 registered... (1755 460 1755)
-Process: 1 I/O blocked... (1755 460 1840)
-i: 0 j2: 3
--ub: 0 process.cpudone 1820<1755 process.cputime
-i: 1 j2: 3
--ub: 1 process.cpudone 1840<1755 process.cputime
-i: 2 j2: 3
--ub: 2 process.cpudone 0<1051 process.cputime
+Process: 1 registered... (11 2 2)
+Process: 1 I/O blocked... (11 2 4)
+-toma a 1
+Process: 1 registered... (11 2 4)
+Process: 1 I/O blocked... (11 2 6)
+-toma a 1
+Process: 1 registered... (11 2 6)
+Process: 1 I/O blocked... (11 2 8)
+//////////////////////////////////////////
+reset
+
+-toma a 1
+Process: 1 registered... (11 2 8)
+Process: 1 I/O blocked... (11 2 10)
+-toma a 1
+Process: 1 registered... (11 2 10)
+Process: 1 completed... (11 2 11)
 -toma a 2
-Process: 2 registered... (1051 660 0)
-Process: 2 I/O blocked... (1051 660 660)
+Process: 2 registered... (11 3 0)
+Process: 2 I/O blocked... (11 3 3)
+-toma a 2
+Process: 2 registered... (11 3 3)
+Process: 2 I/O blocked... (11 3 6)
 //////////////////////////////////////////
 reset
 
-Process: 2 registered... (1051 660 660)
-Process: 2 completed... (1051 660 1051)
+-toma a 2
+Process: 2 registered... (11 3 6)
+Process: 2 I/O blocked... (11 3 9)
+-toma a 2
+Process: 2 registered... (11 3 9)
+Process: 2 completed... (11 3 11)

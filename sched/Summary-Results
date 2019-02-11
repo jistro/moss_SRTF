@@ -1,9 +1,9 @@
-Scheduling Type: Batch (Nonpreemptive)
+Scheduling Type: Preemptive
 Scheduling Name: SRTF
-Simulation Run Time: 4711
-Mean: 1100
-Standard Deviation: 510
+Simulation Run Time: 32
+Mean: 10
+Standard Deviation: 1
 Process #	CPU Time	IO Blocking	CPU Completed	CPU Blocked
-0		1755 (ms)	260 (ms)	1820 (ms)	7 times
-1		1755 (ms)	460 (ms)	1840 (ms)	4 times
-2		1051 (ms)	660 (ms)	1051 (ms)	1 times
+0		10 (ms)		1 (ms)		10 (ms)		9 times
+1		11 (ms)		2 (ms)		11 (ms)		5 times
+2		11 (ms)		3 (ms)		11 (ms)		3 times

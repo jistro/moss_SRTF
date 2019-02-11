@@ -2,6 +2,11 @@
 // the scheduling algorithm written by the user resides.
 // User modification should occur within the Run() function.
 /*
+  javac -nowarn *.java
+  javac -nowarn SchedulingAlgorithm.java
+  java Scheduling scheduling.conf
+*/
+/*
   tomar en cuenta
   process.cpudone -----> el total de tiempo acumulado
   process.ioblocking --> el tiempo max a ejecutar dicha funcion
@@ -14,16 +19,17 @@ import java.io.*;
 public class SchedulingAlgorithm {
 
   public static Results Run(int runtime, Vector processVector, Results result) {
-    int i = 0; int j1=0; int j2=0; int tiempo_minimo=999999;  int candidato=(-1);
+    int i = 0; int j1=0; int j2=0; int k=0; int tiempo_minimo=999999;  int candidato=(-1);
     int tiempo_compilacion = 0;
     int proseso_actual = 0;
+    int[][] tiempo = new int[2][99999];
     //int proseso_anterior = 0;
     //size # of Process
     int size = processVector.size();
     int completados = 0;
     String resultsFile = "Summary-Processes";
 
-    result.schedulingType = "Batch (Nonpreemptive)";
+    result.schedulingType = "Preemptive";
     result.schedulingName = "SRTF";
     try
     {
@@ -33,8 +39,16 @@ public class SchedulingAlgorithm {
       sProcess process = (sProcess) processVector.elementAt(proseso_actual);
 
       //enproceso
-      out.println("inicio tamano: " + size);
-      out.println("Process: " + proseso_actual + " registered... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone +")");
+      out.println("inicio tamano: " + size + "tiempo: " + runtime);
+      for (i=0;i<size;i++)
+      {
+        process = (sProcess) processVector.elementAt(i);
+        tiempo[0][i]=process.ioblocking;
+        tiempo[1][i]=0;
+      }
+      proseso_actual=0;
+      process = (sProcess) processVector.elementAt(proseso_actual);
+      out.println("Process:: " + proseso_actual + " registered... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone +")");
 
       while (tiempo_compilacion < runtime)  //tiempo a hacer la operacion
       {
@@ -44,7 +58,6 @@ public class SchedulingAlgorithm {
               completados++;
               out.println("Process: " + proseso_actual + " completed... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + ")");
 
-              // si ya no se tiene mas que hacer entonces
               if (completados == size)
               {
                 result.compuTime = tiempo_compilacion;
@@ -57,7 +70,7 @@ public class SchedulingAlgorithm {
               }
               else
               {
-                j1=0;
+                j1=1;
                 out.println("------------------------------------------");
                 out.println("reset");
                 out.println();
@@ -66,14 +79,14 @@ public class SchedulingAlgorithm {
               // se asigna la nueva funcion
               tiempo_minimo=999999;
               candidato=size;
-              for (i = 0; i <j1 ; i++)
+              for (i = 0; i <size ; i++)
               {
-                out.println("i: "+i+" j2: "+j2);
+                //out.println("i: "+i+" j2: "+j2);
                 process = (sProcess) processVector.elementAt(i); //elementAt es el  desplazador;
-                out.println("--ub: " + i + " process.cpudone " + process.cpudone + "<" + process.cputime +" process.cputime");
+                //out.println("--ub: " + i + " process.cpudone " + process.cpudone + "<" + process.cputime +" process.cputime");
                 if (process.cpudone <= process.cputime)
                 {
-                  if (process.cpudone <= tiempo_minimo)
+                  if ((process.cputime-process.cpudone) == tiempo_minimo && (process.cputime-process.cpudone) >0)
                   {
                     if (i<candidato)
                     {
@@ -82,6 +95,14 @@ public class SchedulingAlgorithm {
                       proseso_actual = i;
                       out.println("-toma a " + proseso_actual);
                     }
+
+                  }
+                  else if ((process.cputime-process.cpudone) < tiempo_minimo && (process.cputime-process.cpudone) >0)
+                  {
+                    candidato=i;
+                    tiempo_minimo=process.cpudone;
+                    proseso_actual = i;
+                    out.println("-toma a " + proseso_actual);
                   }
                   //proseso_actual = i;
                   //out.println("-toma a " + proseso_actual);
@@ -106,7 +127,7 @@ public class SchedulingAlgorithm {
               }
               else
               {
-                j2=0;
+                j2=1;
                 out.println("//////////////////////////////////////////");
                 out.println("reset");
                 out.println();
@@ -121,15 +142,15 @@ public class SchedulingAlgorithm {
               // se asigna la nueva funcion
               tiempo_minimo=999999;
               candidato=size;
-              for (i = 0; i <j2 ; i++)
+              for (i = 0; i <size ; i++)
               {
-                out.println("i: "+i+" j2: "+j2);
+                //out.println("i: "+i+" j2: "+j2);
                 process = (sProcess) processVector.elementAt(i);
-                out.println("-ub: " + i + " process.cpudone " + process.cpudone + "<" + process.cputime +" process.cputime");
+                //out.println("-ub: " + i + " process.cpudone " + process.cpudone + "<" + process.cputime +" process.cputime");
                 //if (process.cpudone < process.cputime && proseso_anterior != i)
                 if (process.cpudone <= process.cputime )
                 {
-                  if (process.cpudone <= tiempo_minimo)
+                  if ((process.cputime-process.cpudone) == tiempo_minimo && (process.cputime-process.cpudone) >0)
                   {
                     if (i<candidato)
                     {
@@ -138,6 +159,13 @@ public class SchedulingAlgorithm {
                       proseso_actual = i;
                       out.println("-toma a " + proseso_actual);
                     }
+                  }
+                  else if ((process.cputime-process.cpudone) < tiempo_minimo && (process.cputime-process.cpudone) >0)
+                  {
+                    candidato=i;
+                    tiempo_minimo=process.cpudone;
+                    proseso_actual = i;
+                    out.println("-toma a " + proseso_actual);
                   }
                 }
               }
