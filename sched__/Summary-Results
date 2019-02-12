@@ -1,0 +1,16 @@
+Scheduling Type: Batch (preemptive)
+Scheduling Name: Short Remaining Time First
+Simulation Run Time: 11550
+Mean: 1200
+Standard Deviation: 210
+Process #	CPU Time	IO Blocking	CPU Completed	CPU Blocked
+0		1216 (ms)	150 (ms)	1216 (ms)	8 times
+1		1269 (ms)	200 (ms)	1269 (ms)	6 times
+2		883 (ms)	300 (ms)	1200 (ms)	4 times
+3		1231 (ms)	320 (ms)	1231 (ms)	3 times
+4		1165 (ms)	500 (ms)	1165 (ms)	2 times
+5		1056 (ms)	250 (ms)	1056 (ms)	4 times
+6		1151 (ms)	180 (ms)	1151 (ms)	6 times
+7		1152 (ms)	290 (ms)	1152 (ms)	3 times
+8		963 (ms)	300 (ms)	963 (ms)	3 times
+9		1147 (ms)	400 (ms)	1147 (ms)	2 times

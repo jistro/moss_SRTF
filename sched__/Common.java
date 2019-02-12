@@ -12,7 +12,7 @@ public class Common {
   }
 
   static public double R1 () {
-    java.util.Random generator = new java.util.Random();
+    java.util.Random generator = new java.util.Random(System.currentTimeMillis());
     double U = generator.nextDouble();
     while (U < 0 || U >= 1) {
       U = generator.nextDouble();
@@ -53,3 +53,4 @@ public class Common {
   }
 
 }
+

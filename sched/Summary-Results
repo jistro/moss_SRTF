@@ -1,9 +1,16 @@
-Scheduling Type: Preemptive
-Scheduling Name: SRTF
-Simulation Run Time: 32
-Mean: 10
-Standard Deviation: 1
+Scheduling Type: Batch (preemptive)
+Scheduling Name: Short Remaining Time First
+Simulation Run Time: 596
+Mean: 50
+Standard Deviation: 15
 Process #	CPU Time	IO Blocking	CPU Completed	CPU Blocked
-0		10 (ms)		1 (ms)		10 (ms)		9 times
-1		11 (ms)		2 (ms)		11 (ms)		5 times
-2		11 (ms)		3 (ms)		11 (ms)		3 times
+0		66 (ms)		12 (ms)		66 (ms)		5 times
+1		60 (ms)		12 (ms)		60 (ms)		4 times
+2		72 (ms)		30 (ms)		72 (ms)		2 times
+3		39 (ms)		10 (ms)		50 (ms)		5 times
+4		58 (ms)		5 (ms)		58 (ms)		11 times
+5		39 (ms)		5 (ms)		39 (ms)		7 times
+6		51 (ms)		20 (ms)		51 (ms)		2 times
+7		66 (ms)		16 (ms)		66 (ms)		4 times
+8		72 (ms)		15 (ms)		72 (ms)		4 times
+9		62 (ms)		35 (ms)		62 (ms)		1 times
